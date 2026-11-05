@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#48a098" />
+  <meta name="description" content="体調の記録用メモ帳。医療アドバイスではありません。" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="体調メモ" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <title>体調メモ</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>体調メモ</h1>
+      <p class="tagline">記録用のメモ帳</p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab is-active" data-tab="input" role="tab" aria-selected="true">きょうの記録</button>
+      <button type="button" class="tab" data-tab="list" role="tab" aria-selected="false">これまでの記録</button>
+    </nav>
+
+    <main>
+      <section id="panel-input" class="panel is-active" role="tabpanel">
+        <label class="field">
+          <span class="label">日付</span>
+          <input type="date" id="date" />
+        </label>
+
+        <label class="field">
+          <span class="label">体温（℃）</span>
+          <input type="number" id="temp" inputmode="decimal" step="0.1" min="30" max="45" placeholder="例：36.5" />
+        </label>
+
+        <fieldset class="field medicine">
+          <legend class="label">薬</legend>
+          <label class="check-row">
+            <input type="checkbox" id="medTaken" />
+            <span>飲んだ</span>
+          </label>
+          <input type="text" id="medName" placeholder="薬の名前（任意）" autocomplete="off" />
+        </fieldset>
+
+        <label class="field">
+          <span class="label">体重（kg）</span>
+          <input type="number" id="weight" inputmode="decimal" step="0.1" min="0" max="500" placeholder="例：60.0" />
+        </label>
+
+        <fieldset class="field bp">
+          <legend class="label">血圧</legend>
+          <div class="bp-row">
+            <label class="bp-half">
+              <span class="sublabel">上（収縮期）</span>
+              <input type="number" id="bpSys" inputmode="numeric" step="1" min="0" max="300" placeholder="例：120" />
+            </label>
+            <span class="bp-slash" aria-hidden="true">/</span>
+            <label class="bp-half">
+              <span class="sublabel">下（拡張期）</span>
+              <input type="number" id="bpDia" inputmode="numeric" step="1" min="0" max="200" placeholder="例：80" />
+            </label>
+          </div>
+        </fieldset>
+
+        <button type="button" id="saveBtn" class="btn-primary">保存</button>
+        <p id="saveHint" class="hint" hidden></p>
+      </section>
+
+      <section id="panel-list" class="panel" role="tabpanel" hidden>
+        <ul id="recordList" class="record-list"></ul>
+        <p id="emptyState" class="empty">まだ記録がありません</p>
+      </section>
+    </main>
+
+    <footer class="disclaimer">
+      これは記録用のメモ帳です。医療アドバイスではありません。体調の判断や薬の飲み方は医師・薬剤師に相談してください。
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
